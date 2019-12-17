@@ -154,4 +154,13 @@ class Role extends Resource
     {
         return [];
     }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isRoot()) {
+            return $query;
+        }else{
+            return $query->where('slug', '!=', 'root');
+        }
+    }
 }
